@@ -7,6 +7,6 @@ Personal Project: Web app made in python using Flask for backend + MongoDB for d
   - Responsive design
  
 *Modules used*:
-  - [Requirements](https://github.com/Bryan-0/AylCloud-FileHosting/requirements.txt)
+  - [Requirements](https://github.com/Bryan-0/AylCloud-FileHosting/blob/master/requirements.txt)
 
 # [Take a look! :)](https://aylsoftware.cyou/)
