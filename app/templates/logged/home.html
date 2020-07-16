@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Ayl Cloud - Home</title>
+    <meta name="description" content="Ayl Cloud services.">
+    <link rel="icon" href="{{ url_for('static', filename='imgs/aylcloudicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="/home"><img src="https://freeiconshop.com/wp-content/uploads/edd/upload-cloud-outline-filled.png" style="margin-right: 5px; margin-top: 1.5px;" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">Ayl Cloud</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/logout">LOGOUT</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/home">My files</a></li>
+                    <li class="nav-item" role="presentation"><a class="btn btn-primary js-scroll-trigger" href="/upload">UPLOAD</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead text-center text-white d-flex" style="background-color: #212529!important;">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h3 class="text-uppercase"><strong>Welcome {{ userName }}, your files: </strong></h3>
+                    <hr>
+                </div>
+            </div>
+            <div class="table-responsive">
+            <table style="font-size: 20px;" class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">File Size</th>
+                    <th scope="col">Upload Date</th>
+                    <th scope="col">File Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for pos, userFile in userFiles %}
+                  <tr id="{{ userFile[0] }}">
+                    <th scope="col">{{ pos }}</th>
+                    <td> {{ userFile[0] }} </td>
+                    <td> {{ userFile[1] }} </td>
+                    <td> {{ userFile[2] }} </td>
+                    <td><div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="/{{userEmail}}/file/{{userFile[0]}}" download>Download</a>
+                          <form action="/deletefile" method="POST">
+                            <input id="holder" type="text" name="fileToDelete" style="display: none;">
+                            <a id="{{ userFile[0] }}" class="dropdown-item" onclick="DeleteOption(this.id)" href="#">Delete</a>
+                            <button type="submit" style="display: none;" id="activate"></button>
+                          </form>
+                        </div>
+                      </div></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <p></p>
+            <hr>
+            <div class="col-sm">
+              <small style="color: red;">Space used: {{ userSpaceUsed }}/{{ userSpaceLimit }} </small>
+            </div>
+        </div>
+    </header>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.min.js') }}"></script>
+    <script>
+      // Avoid form resubmission
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+
+      function DeleteOption(id) {
+        document.getElementById('holder').value = id;
+        document.getElementById('activate').click();
+      }
+
+      if ({{ nospace }} == 1) {
+        alert("You have exceed your maximum storage!")
+      }
+      </script>
+</body>
+
+</html>
