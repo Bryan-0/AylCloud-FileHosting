@@ -8,5 +8,9 @@ Personal Project: Web app made in python using Flask for backend + MongoDB for d
  
 *Modules used*:
   - [Requirements](https://github.com/Bryan-0/AylCloud-FileHosting/blob/master/requirements.txt)
+  
+ *Test account*:
+ - Email: guest@aylsoftware.cyou
+ - Password: guestpass12345
 
 # [Take a look! :)](https://aylsoftware.cyou/)
